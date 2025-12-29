@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>帖子详情</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="discussion-container">
+<h2>帖子详情</h2>
+<p><a th:href="@{/discussion/list}" class="btn">返回列表</a></p>
+
+<div class="post">
+    <h3 th:text="${discussion.title}">标题</h3>
+    <p th:text="${discussion.content}">内容</p>
+    <div class="meta">
+        作者：<span th:text="${discussion.author}">作者</span> |
+        时间：<span th:text="${discussion.createTime}">时间</span>
+    </div>
+</div>
+
+<h3>回复</h3>
+<div th:each="r : ${discussion.replies}" class="reply">
+    <p th:text="${r.content}">回复内容</p>
+    <div class="meta">
+        <span th:text="${r.author}">回复者</span> |
+        <span th:text="${r.createTime}">时间</span>
+    </div>
+</div>
+
+<h3>发表回复</h3>
+<form th:action="@{/discussion/reply}" method="post">
+    <input type="hidden" name="discussionId" th:value="${discussion.id}">
+    <textarea name="content" required></textarea><br>
+    <button type="submit" class="btn">回复</button>
+</form>
+</body>
+</html>

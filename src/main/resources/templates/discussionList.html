@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>讨论列表</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="discussion-container">
+<h2>讨论列表</h2>
+<p th:if="${session.currentUser}">
+    欢迎，<span th:text="${session.currentUser.username}">用户</span>！
+    <a th:href="@{/user/logout}">退出登录</a>
+</p>
+<a th:href="@{/discussion/post}" class="btn">发表新帖</a>
+
+<div th:each="d : ${discussionList}" class="discussion-item">
+    <div class="discussion-title">
+        <a th:href="@{/discussion/detail(id=${d.id})}"
+           th:text="${d.title}">标题</a>
+    </div>
+    <div class="discussion-meta">
+        作者：<span th:text="${d.author}">作者</span> |
+        发布时间：<span th:text="${d.createTime}">时间</span>
+    </div>
+</div>
+
+<div th:if="${#lists.isEmpty(discussionList)}">
+    <p>暂无讨论</p>
+</div>
+</body>
+</html>

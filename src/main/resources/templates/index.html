@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<!-- 直接跳转到登录页面 -->
+<div style="display:none;">
+    <p th:if="${redirectUrl != null and redirectUrl != ''}">
+        正在跳转...如果页面没有自动跳转，请
+        <a th:href="${redirectUrl}">点击这里</a>
+    </p>
+    <p th:unless="${redirectUrl != null and redirectUrl != ''}">
+        正在跳转到登录页...如果页面没有自动跳转，请
+        <a th:href="@{/user/login}">点击这里</a>
+    </p>
+</div>
+
+<script>
+    // 使用Thymeleaf内联表达式
+    var redirectUrl = /*[[${redirectUrl}]]*/ '/user/login';
+    if (!redirectUrl) {
+        redirectUrl = '/user/login';
+    }
+    window.location.href = redirectUrl;
+</script>
+</body>
+</html>
